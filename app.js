@@ -5,8 +5,14 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors')
+const dotenv = require('dotenv')
 
-mongoose.connect('mongodb://localhost:27017/express-G')
+dotenv.config({path:'./config.env'})
+const DB = process.env.DATABASE.replace(
+  '<password>',
+  process.env.DATABASE_PASSWORD
+)
+mongoose.connect(DB)
  .then(() => {console.log('資料庫連線成功')})
 
 var indexRouter = require('./routes/index');
